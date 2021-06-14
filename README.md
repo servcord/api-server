@@ -1,2 +1,4 @@
-# api-server
-The REST API server for Servcord
+# Servcord API 
+Servcord's REST API
+
+
