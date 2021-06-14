@@ -1,0 +1,26 @@
+{
+  "name": "api-server",
+  "version": "1.0.0",
+  "description": "Servcord's REST API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/servcord/api-server.git"
+  },
+  "author": "20PercentRendered",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/servcord/api-server/issues"
+  },
+  "homepage": "https://github.com/servcord/api-server#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
+    "@typescript-eslint/parser": "^4.26.1",
+    "eslint": "^7.28.0",
+    "typescript": "^4.3.2"
+  }
+}
