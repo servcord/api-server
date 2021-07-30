@@ -1,4 +1,4 @@
-# Servcord API 
-Servcord's REST API
+# Campfire API 
+Campfire's REST API
 
 
