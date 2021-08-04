@@ -1,7 +1,20 @@
 {
+  "ts-node": {
+    // It is faster to skip typechecking.
+    // Remove if you want ts-node to do typechecking.
+    "transpileOnly": true,
+
+    "files": true,
+
+    "compilerOptions": {
+      // compilerOptions specified here will override those declared below,
+      // but *only* in ts-node.  Useful if you want ts-node and tsc to use
+      // different options with a single tsconfig.json.
+    }
+  },
   "compilerOptions": {
     // "incremental": true,                         /* Enable incremental compilation */
-    "target": "es5",                                /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', 'ES2021', or 'ESNEXT'. */
+    "target": "es2021",                                /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', 'ES2021', or 'ESNEXT'. */
     "module": "commonjs",                           /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'. */
     // "lib": [],                                   /* Specify library files to be included in the compilation. */
     // "allowJs": true,                             /* Allow javascript files to be compiled. */
@@ -47,8 +60,8 @@
       "@servcord/shared/*": ["./shared/*"],
     },                                              
     // "rootDirs": [],                              /* List of root folders whose combined content represents the structure of the project at runtime. */
-    // "typeRoots": [],                             /* List of folders to include type definitions from. */
-    // "types": [],                                 /* Type declaration files to be included in compilation. */
+    // "typeRoots": ["./src/vendor.d.ts"],                                /* List of folders to include type definitions from. */
+    // "types": ["./src/index.d.ts"],                                 /* Type declaration files to be included in compilation. */
     // "allowSyntheticDefaultImports": true,        /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
     "esModuleInterop": true,                        /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
     // "preserveSymlinks": true,                    /* Do not resolve the real path of symlinks. */
@@ -66,6 +79,6 @@
 
     /* Advanced Options */
     "skipLibCheck": true,                           /* Skip type checking of declaration files. */
-    "forceConsistentCasingInFileNames": true        /* Disallow inconsistently-cased references to the same file. */
+    "forceConsistentCasingInFileNames": true       /* Disallow inconsistently-cased references to the same file. */
   }
 }

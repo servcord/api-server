@@ -33,9 +33,9 @@ export class AppModifier {
     		new ModificationData("NETWORKING_ENDPOINT",`//${ip}/`),
     		new ModificationData("RTC_LATENCY_ENDPOINT",`//${ip}/latency/rtc`),
     		new ModificationData("ACTIVITY_APPLICATION_HOST",`//${ip}/activities`),
-    		new ModificationData("REMOTE_AUTH_ENDPOINT",`ws://${ip}/authgateway`),
-    		new ModificationData("GATEWAY_ENDPOINT", `ws://${ip}/gateway`),
-    		new ModificationData("SENTRY_TAGS",{ // we don't want to give discord a bunch of reports about our client
+    		new ModificationData("REMOTE_AUTH_ENDPOINT",`wss://${ip}/authgateway`),
+    		new ModificationData("GATEWAY_ENDPOINT", `wss://${ip}/gateway`),
+    		new ModificationData("SENTRY_TAGS", { // we don't want to give discord a bunch of reports about our client
     			"buildId":"",
     			"buildType":"normal"
     		}),
@@ -99,7 +99,7 @@ export class AppModifier {
     				Host: "discord.com"
     			}
     		}, res => {
-    			this.logger.info(`Got app with statusCode: ${res.statusCode}`);
+    			this.logger.info(`Got ${path} with statusCode: ${res.statusCode}`);
     			res.on("data", (d) => {
     				chunks+=d;
     			});

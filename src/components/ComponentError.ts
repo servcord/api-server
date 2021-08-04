@@ -37,6 +37,4 @@ export default class ComponentError extends Error {
 		this.componentFriendlyName = componentFriendlyName;
 	}
 }
-export type ComponentErrorCallback = {
-	
-}
+export type ErrorHandler = { (e: ComponentError): void; };

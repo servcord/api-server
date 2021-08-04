@@ -1,7 +1,8 @@
-import ComponentError from "components/ComponentError";
+import ComponentError, { ErrorHandler } from "components/ComponentError";
 import IComponent from "components/IComponent";
 import { TypedEmitter } from "tiny-typed-emitter";
 import hcaptcha from "hcaptcha";
+import { ComponentNames } from "components/Components";
 
 class LoginHandlerEvents {
     
@@ -11,12 +12,13 @@ type LoginResult = {
 	payload: any;
 	result: "needcaptcha" | "need2fa" | "success" | "failure"
 }
+// Captchas don't work on localhost, they only work through the interwebs, with a domain name.
 const captchaEnabled = false;
-const secret = "my hcaptcha secret from hcaptcha.com";
-const sitekey = "1234-5678-9012-3456";
+const secret = "0x0000000000";
+const sitekey = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
 
 export default class LoginHandler extends TypedEmitter<LoginHandlerEvents> implements IComponent {
-	private errorHandlers: { (e: ComponentError): void; } [] = [];
+	private errorHandlers: ErrorHandler[] = [];
 	constructor() {
 		super();
 	}  
@@ -29,12 +31,11 @@ export default class LoginHandler extends TypedEmitter<LoginHandlerEvents> imple
 			if (captcha_key) {
 				this.verifyCaptcha(captcha_key).then((valid)=>{
 					if (valid) {
-						
 						return {
 							code: 200,
 							result: "success",
 							payload: {
-								token: "thisisatoken.foranapp.calledservcord", //TODO: generate tokens using TokenHandler
+								token: "thisisatoken.foranapp.calledcampfire", //TODO: generate tokens using TokenHandler
 								user_settings: {"locale": "en-US", "theme": "dark"} //TODO: get user settings from database
 							}
 						};
@@ -99,7 +100,7 @@ export default class LoginHandler extends TypedEmitter<LoginHandlerEvents> imple
 		});
 	}
 	private errored(msg?: string) {
-		const error = new ComponentError("LoginHandler", LoginHandler, msg, "Login Handler");
+		const error = new ComponentError(ComponentNames.LoginHandler, LoginHandler, msg, "Login Handler");
 		this.errorHandlers.forEach((cb)=>{
 			cb(error);
 		});
