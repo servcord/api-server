@@ -75,12 +75,12 @@ export default class ExpressMain extends TypedEmitter implements IComponent {
 			res.send("You seem to have stumbled upon the front page of a Campfire instance, however a front page doesn't exist (yet). Use the /app subdomain, or check out our progress on https://github.com/servcord/api-server");
 		});
 
-		this.httpServer = http.createServer(this.app).listen(8877);
+		this.httpServer = http.createServer(this.app).listen(80);
 		this.sslCertificateGenerator?.readCertsFromStorage().then((value)=>{
-			this.httpsServer = https.createServer({ key: value.key, cert: value.cert }, this.app).listen(8443);
-		}).catch((e)=>{
+			this.httpsServer = https.createServer({ key: value.key, cert: value.cert }, this.app).listen(443);
+		}).catch(()=>{
 			this.sslCertificateGenerator?.generateSelfSigned().then((value)=>{
-				this.httpsServer = https.createServer({ key: value.key, cert: value.cert }, this.app).listen(8443);
+				this.httpsServer = https.createServer({ key: value.key, cert: value.cert }, this.app).listen(443);
 			});
 		});
 	

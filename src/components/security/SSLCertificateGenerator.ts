@@ -41,12 +41,13 @@ export default class SSLCertificateGenerator extends TypedEmitter<SSLCertificate
 	}
 	/**
 	 * Reads certs from process.cwd() + "/certs".
+	 * a.k.a dist/certs/*.pem
 	 * key filename: privkey.pem
 	 * cert filename: fullchain.pem
 	 */
 	async readCertsFromStorage(): Promise<{key: string, cert: string}> {
 		return new Promise((resolve,reject)=>{
-			this.logger.info("Reading certs from file.");
+			this.logger.info("Reading certs from disk.");
 			//TODO: custom path
 			const base = path.join(process.cwd(), "certs");
 			const keypath = base + "/privkey.pem";
@@ -54,6 +55,7 @@ export default class SSLCertificateGenerator extends TypedEmitter<SSLCertificate
 			Promise.all([fs.promises.readFile(keypath, {encoding: "utf-8"}), fs.promises.readFile(certpath, {encoding: "utf-8"})]).then(([key, cert])=>{
 				resolve({key: key, cert: cert});
 			}).catch((e)=>{
+				this.logger.error("Failed to load certs from disk. Do you have certificates?");
 				reject(e);
 			});
 		});

@@ -1,5 +1,3 @@
-import Config from "@servcord/shared/api/config/Config";
-
 import LoginHandler from "components/auth/LoginHandler";
 import GatewayServer from "components/gateway/GatewayServer";
 import AuthGatewayServer from "components/gateway/AuthGatewayServer";
