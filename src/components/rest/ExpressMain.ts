@@ -12,6 +12,8 @@ import GatewayServer from "components/gateway/GatewayServer";
 import AuthGatewayServer from "components/gateway/AuthGatewayServer";
 import SSLCertificateGenerator from "components/security/SSLCertificateGenerator";
 import { Socket } from "net";
+import UserManager from "components/auth/UserManager";
+import TokenHandler from "components/auth/TokenHandler";
 
 export default class ExpressMain extends TypedEmitter implements IComponent {
 	public app: express.Express;
@@ -21,6 +23,14 @@ export default class ExpressMain extends TypedEmitter implements IComponent {
 
 	private get loginHandler() {
 		return global.components.getComponent<LoginHandler>(ComponentNames.LoginHandler);
+	}
+
+	private get userManager() {
+		return global.components.getComponent<UserManager>(ComponentNames.UserManager);
+	}
+
+	private get tokenHandler() {
+		return global.components.getComponent<TokenHandler>(ComponentNames.TokenHandler);
 	}
 
 	private get gatewayServer() {
@@ -61,9 +71,32 @@ export default class ExpressMain extends TypedEmitter implements IComponent {
 				res.send("LoginHandler was null");
 				return;
 			}
-			const { code, payload } = this.loginHandler.handleLogin(req.body.login, req.body.password, req.body.captcha_key);
-			res.statusCode = code;
-			res.send(payload);
+			this.loginHandler.handleLogin(req.body.login, req.body.password, req.body.captcha_key).then(({code, payload})=>{
+				res.statusCode = code;
+				res.send(payload);
+			});
+		});
+		this.app.use("/api/v9/auth/register", (req,res) => {
+			if (!this.userManager) {
+				res.statusCode = 500;
+				res.send("UserManager was null");
+				return;
+			}
+			this.userManager?.createUser(req.body.username, req.body.email, req.body.password).then((id)=>{
+				this.tokenHandler?.getOrGenerateToken(id).then((token)=>{
+					this.tokenHandler?.saveToken(token);
+					res.statusCode = 200;
+					res.send({token: token});
+				}).catch((e)=>{
+					res.statusCode = 500;
+					res.send("Failed to create token");
+					return;
+				});
+			}).catch((e)=>{
+				res.statusCode = 500;
+				res.send("Failed to create user");
+				return;
+			});
 		});
 
 		// use below route for acquiring a ssl certificate
@@ -133,7 +166,7 @@ export default class ExpressMain extends TypedEmitter implements IComponent {
 				if (!this.gatewayServer) {
 					return;
 				}
-				this.gatewayServer.wsServer.emit("connection", ws, request, args);
+				this.gatewayServer.wsServer.emit("connection", ws, request);
 			});
 		} else if (url.pathname === "/authgateway/") {
 			if (!this.authGatewayServer) {

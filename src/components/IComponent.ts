@@ -2,7 +2,7 @@
 /* eslint-disable semi */
 
 import { TypedEmitter } from "tiny-typed-emitter";
-import ComponentError from "components/ComponentError";
+import ComponentError, { ErrorHandler } from "components/ComponentError";
 
 /**
  * A component is something that allows us to split Campfire into multiple pieces, so the entire server or client doesn't crash, instead disabling a piece of functionality until it starts working again.
@@ -20,7 +20,7 @@ export default interface IComponent extends TypedEmitter {
 	 * Adds an error handler, so when things go wrong, you get to know how without try/catches.
 	 * Also, ComponentError tells you component-specific things.
 	 */
-	addErrorHandler(cb: (e: ComponentError) => never): void;
+	addErrorHandler(cb: ErrorHandler): void;
 }
 export class ComponentArray extends Array<IComponent> {
 	constructor(...items: IComponent[]) {

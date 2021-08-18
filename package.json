@@ -19,12 +19,20 @@
   },
   "homepage": "https://github.com/servcord/api-server#readme",
   "dependencies": {
+    "async-lock": "^1.3.0",
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.1",
+    "big-integer": "^1.6.48",
     "chalk": "^4.1.2",
     "colors": "^1.4.0",
+    "email-validator": "^2.0.4",
+    "erlpack": "^0.1.3",
     "express": "^4.17.1",
     "express-cache-middleware": "^1.0.1",
+    "fast-zlib": "^2.0.1",
     "hcaptcha": "^0.1.0",
     "http-proxy-middleware": "^2.0.1",
+    "lz4": "^0.6.5",
     "mkdirp": "^1.0.4",
     "moment": "^2.29.1",
     "pem": "^1.14.4",
@@ -33,6 +41,7 @@
     "ws": "^8.0.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/cache-manager": "^3.4.2",
     "@types/express": "^4.17.13",
     "@types/mkdirp": "^1.0.2",

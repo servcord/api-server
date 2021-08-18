@@ -3,6 +3,8 @@ export class ComponentNames {
     // auth related things
     static LoginHandler = "LoginHandler";
     static TokenHandler = "TokenHandler";
+    static UserManager = "UserManager";
+    static Captchas = "Captchas";
 
     // Gateway servers
     static AuthGatewayServer = "AuthGatewayServer";
@@ -12,6 +14,7 @@ export class ComponentNames {
     static WebappEndpoints = "WebappEndpoints"
     static ExpressMain = "ExpressMain"
 
-    // Security/SSL things
+    // Misc utilities
     static SSLCertificateGenerator = "SSLCertificateGenerator";
+    static StorageManager = "StorageManager";
 }
