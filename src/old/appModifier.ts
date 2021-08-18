@@ -93,7 +93,7 @@ export class AppModifier {
     		const req = https.request({
     			hostname: "162.159.135.232",
     			port: 443,
-    			path: path,
+    			path: path + "?_=1628359995639",
     			method: "GET",
     			headers: {
     				Host: "discord.com"
