@@ -1,3 +1,5 @@
+# THIS PROJECT WILL BE REWRITTEN
+
 # Campfire API 
 Campfire's REST API
 
