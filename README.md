@@ -1,6 +1,5 @@
-# THIS PROJECT WILL BE REWRITTEN
-
 # Campfire API 
+# ARCHIVED: Rewrite
 Campfire's REST API
 
 ## Developing
